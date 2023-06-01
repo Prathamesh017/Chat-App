@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Login from './Login';
 import Register from "./Register";
-import "../index.css"
+import "../../index.css";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,7 +55,7 @@ export default function HomePage() {
     <Box style={{className:"box"}} className="box">
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" st>
-          <Tab label="Login"  {...a11yProps(0)}  style={{width:"50%"}}/>
+          <Tab label="Logins"  {...a11yProps(0)}  style={{width:"50%"}}/>
           <Tab label="Register" className="tab" {...a11yProps(1)} style={{width:"50%"}}/>
          
         </Tabs>

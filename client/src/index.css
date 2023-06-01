@@ -31,23 +31,7 @@
   font-family: monospace;
 }
 
-.chat-header {
-  display: flex;
-  flex-direction: row;
-  width: 100vw;
-  padding: 10px;
-  height: 10vh;
-  align-items: center;
- 
-}
-.chat-header > div> input{
-  border:2px solid white;
-  width: 70%;
-  border-radius: 20px;
-  padding: 5px 5px 5px 20px;
-  /* padding-left: 20px; */
- 
-}
+
 
 @media screen and (max-width: 850px) {
   .home-page {

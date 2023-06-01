@@ -29,10 +29,14 @@ const checkForErrors=function(){
 
 const login=async function(){
   try {
-    const user=await axios.post("api/user/login", data);
-    localStorage.setItem("user",user.data.data);
-    setError((err)=>({...err,showToast:true,showToastStatus:"success"}))
-    navigate("/chats");
+    const user=await axios.post("http://localhost:3000/api/user/login", data);
+    console.log(user.data);
+    localStorage.setItem("user",JSON.stringify(user.data.data));
+    setError((err)=>({...err,showToast:true,showToastStatus:"success",message:user.data.message}))
+    setTimeout(()=>{
+      console.log("LOGINNN")
+      navigate("/chats");
+    },3000);
   } catch (error) {
     console.log(error);
     setError((err)=>({...err,showToast:true,showToastStatus:"error",message:error.response.data.message}));

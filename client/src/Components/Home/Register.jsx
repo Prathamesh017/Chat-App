@@ -47,11 +47,13 @@ const checkForErrors=async function(){
 
 const register=async()=>{
   try {
-    const user=await axios.post("api/user/register", data);
+    const user=await axios.post("http://localhost:3000/api/user/register", data);
     localStorage.setItem("user",user.data.data);
     setError((err)=>({...err,showToast:true,showToastStatus:"success",message:user.data.message}));
-    navigate("/chats");
-    // setIsRegistered(true);
+    setTimeout(()=>{
+      navigate("/chats");
+    },3000);
+  
     
   } catch (error) {
     console.log(error);

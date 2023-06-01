@@ -5,8 +5,6 @@ const userService = new UserService()
 export const registerUser = async (req, res) => {
   let { name, email, password, image } = req.body
 
- 
- 
   try {
     if (!(name && email && password)) {
       res.status(400).json({
@@ -16,9 +14,9 @@ export const registerUser = async (req, res) => {
     }
 
     let existingUser = await userModel.find({ email: email })
-    console.log(existingUser.length);
+    console.log(existingUser.length)
     if (existingUser.length > 0) {
-      console.log("here");
+      console.log('here')
       res.status(404).json({
         status: 'failure',
         message: 'User Already Exists',
@@ -77,6 +75,7 @@ export const loginUser = async (req, res) => {
 }
 
 export const getUser = async (req, res) => {
+  console.log(req.query)
   let searchKey = req.query.searchText
     ? {
         $or: [
