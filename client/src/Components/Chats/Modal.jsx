@@ -32,17 +32,20 @@ export function BasicModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let loggedUser = JSON.parse(localStorage.getItem("user"));
-
   React.useEffect(() => {
     fetchImage();
   }, []);
 
-  const fetchImage = async () => {
-    const res = await fetch(loggedUser.image);
+  async function fetchImage() {
+    let image = loggedUser.image;
+    if (image.includes("anonymous-avatar")) {
+      return setImage(image);
+    }
+    const res = await fetch(image);
     const imageBlob = await res.blob();
     const imageObjectURL = URL.createObjectURL(imageBlob);
     setImage(imageObjectURL);
-  };
+  }
 
   return (
     <div>

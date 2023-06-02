@@ -2,11 +2,8 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import userModel from '../Models/userModel.js'
 class UserService {
-
-   pt=0;
-  constructor() {
-
-  }
+  
+  constructor() {}
 
   hashPassword = async (password) => {
     try {
@@ -22,14 +19,13 @@ class UserService {
   validatePassword = async (password, hash) => {
     try {
       let isPasswordCorrect = await bcrypt.compare(password, hash)
-      console.log(isPasswordCorrect)
+
       return isPasswordCorrect ? true : false
     } catch (error) {
       console.log(error)
     }
   }
   generateToken = async (user, email) => {
-    console.log(user);
     const token = await jwt.sign(
       { user_id: user._id, email },
       process.env.TOKEN_KEY,
@@ -37,7 +33,7 @@ class UserService {
         expiresIn: '2h',
       },
     )
-    console.log(token)
+
     return token
   }
 
@@ -52,16 +48,15 @@ class UserService {
 
     let checkPassword = await this.validatePassword(password, user[0].password)
     if (checkPassword) {
-    let token = await this.generateToken(user[0], user[0].email);
+      let token = await this.generateToken(user[0], user[0].email)
       let userObj = {
         name: user[0].name,
         email: user[0].email,
         password: user[0].password,
         image: user[0].image,
         token,
-        
       }
-      return userObj;
+      return userObj
     } else {
       res.status(400).json({
         status: 'failure',
@@ -71,7 +66,6 @@ class UserService {
   }
 
   createUser = async (name, email, password, image) => {
-  
     let user = await userModel.create({
       name,
       email,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import FormControl from "@mui/material/FormControl";
 import { OutlinedInput } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -6,6 +6,7 @@ import { useState } from "react";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 export default function Register() {
   let regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function Register() {
     showToastStatus: "",
     message: "",
   });
+  const [isLoading, setisLoading] = useState(false);
 
   const checkForErrors = async function () {
     if (!data.email || !data.password || !data.cpassword || !data.name) {
@@ -53,6 +55,7 @@ export default function Register() {
   };
 
   const handleImage = async (event) => {
+    setisLoading(true);
     const formData = new FormData();
     formData.append("file", event.target.files[0]);
     formData.append("upload_preset", "chat-app");
@@ -61,19 +64,27 @@ export default function Register() {
       "https://api.cloudinary.com/v1_1/dgkwwd1zl/image/upload",
       formData
     );
-    console.log(ImageData);
+
     setData((existingData) => ({
       ...existingData,
       image: Imagedata.data.url,
     }));
+    setisLoading(false);
   };
   const register = async () => {
     try {
+      setisLoading(true);
+      if (data.image === "") {
+        data.image =
+          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
+      }
       const user = await axios.post(
         "http://localhost:3000/api/user/register",
         data
       );
+      
       localStorage.setItem("user", JSON.stringify(user.data.data));
+      
       setError((err) => ({
         ...err,
         showToast: true,
@@ -91,6 +102,8 @@ export default function Register() {
         showToastStatus: "error",
         message: error.response.data.message,
       }));
+    } finally {
+      setisLoading(false);
     }
 
     return;
@@ -149,24 +162,31 @@ export default function Register() {
         />
       </FormControl>
 
-      <input
-        placeholder="Upload Image"
-        type="file"
-        accept=".png,.jpg,.jpeg"
-        style={{ color: "black", marginBottom: "10px" }}
-        onChange={(event) => {
-          handleImage(event);
-        }}
-      />
+      <FormControl>
+        <label>Upload Profile Pic</label>
+        <OutlinedInput
+          placeholder="Upload Image"
+          type="file"
+          accept=".png,.jpg,.jpeg"
+          fullWidth
+          style={{ color: "black", marginBottom: "10px", width: "100%" }}
+          onChange={(event) => {
+            handleImage(event);
+          }}
+        />
+      </FormControl>
 
       <Button
+        loading
+        loadingIndicator="Loading…"
         variant="contained"
+        disabled={isLoading}
         onClick={checkForErrors}
         style={{ width: "100%", marginTop: "40px" }}
       >
         Register
       </Button>
-
+      {isLoading && <CircularProgress style={{ marginLeft: "50%" }} />}
       {error.showToast && (
         <Alert severity={error.showToastStatus} style={{ marginTop: "20px" }}>
           {error.message}{" "}

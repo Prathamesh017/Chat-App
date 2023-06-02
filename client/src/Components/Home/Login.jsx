@@ -43,7 +43,6 @@ function Login() {
         message: user.data.message,
       }));
       setTimeout(() => {
-        console.log("LOGINNN");
         navigate("/chats");
       }, 3000);
     } catch (error) {
