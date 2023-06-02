@@ -30,12 +30,39 @@
 .right-buttons > button {
   width: 100px;
 }
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: large;
+}
+.profile-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+}
 @media screen and (max-width: 850px) {
   .chat-title {
     font-size: 20px;
   }
+
   .right-buttons {
     display: flex;
     flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: small;
+  }
+  .profile-image {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
   }
 }

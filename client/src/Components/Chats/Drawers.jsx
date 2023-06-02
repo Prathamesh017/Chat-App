@@ -4,15 +4,10 @@ import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-
 import axios from "axios";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import ImageIcon from "@mui/icons-material/Image";
-import WorkIcon from "@mui/icons-material/Work";
-import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import ListItemButton from "@mui/material/ListItemButton";
 import "./chat.css";
 
@@ -78,7 +73,7 @@ function TemporaryDrawer() {
       >
         <input
           type="text"
-          placeholder="Search User Here"
+          placeholder="Search (Try Guest)"
           style={{
             border: "2px solid black",
             width: "60%",
@@ -113,7 +108,13 @@ function TemporaryDrawer() {
               >
                 <ListItem>
                   <ListItemAvatar>
-                    <img src={user.image} width="50px" alt="mp" />
+                    <img
+                      src={user.image}
+                      width="50px"
+                      height="50px"
+                      style={{ borderRadius: "50%" }}
+                      alt="mp"
+                    />
                   </ListItemAvatar>
                   <ListItemText primary={user.name} secondary="Jan 9, 2014" />
                 </ListItem>

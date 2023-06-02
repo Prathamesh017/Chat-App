@@ -14,9 +14,8 @@ export const registerUser = async (req, res) => {
     }
 
     let existingUser = await userModel.find({ email: email })
-    console.log(existingUser.length)
+
     if (existingUser.length > 0) {
-      console.log('here')
       res.status(404).json({
         status: 'failure',
         message: 'User Already Exists',
@@ -75,12 +74,17 @@ export const loginUser = async (req, res) => {
 }
 
 export const getUser = async (req, res) => {
-  console.log(req.query)
   let searchKey = req.query.searchText
     ? {
         $or: [
-          { email: { $regex: req.query.searchText } },
-          { name: { $regex: req.query.searchText } },
+          {
+            email: { $regex: req.query.searchText, $options: 'i' },
+            _id: { $ne: `${req.user.user_id}` },
+          },
+          {
+            name: { $regex: req.query.searchText, $options: 'i' },
+            _id: { $ne: `${req.user.user_id}` },
+          },
         ],
       }
     : {}
@@ -91,6 +95,4 @@ export const getUser = async (req, res) => {
     data: users,
     message: 'All Users',
   })
-
-  // res.send('Hello')
 }

@@ -6,7 +6,6 @@ function ChatPage() {
   return (
     <>
       <ChatHeader></ChatHeader>
-      <BasicModal></BasicModal>
     </>
   );
 }
