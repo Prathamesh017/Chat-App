@@ -2,6 +2,9 @@ import UserService from '../Service/userService.js'
 import userModel from '../Models/userModel.js'
 const userService = new UserService()
 
+
+// @description -register a user for first tim
+//@route -  api/user/register POST
 export const registerUser = async (req, res) => {
   let { name, email, password, image } = req.body
 
@@ -50,6 +53,8 @@ export const registerUser = async (req, res) => {
   }
 }
 
+// @description -login a user
+//@route -  api/user/login POST
 export const loginUser = async (req, res) => {
   let { email, password } = req.body
 
@@ -74,6 +79,8 @@ export const loginUser = async (req, res) => {
   }
 }
 
+// @description -search for other user in search bar
+//@route -  api/user GET
 export const getUser = async (req, res) => {
   let searchKey = req.query.searchText
     ? {

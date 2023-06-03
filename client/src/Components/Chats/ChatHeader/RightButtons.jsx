@@ -1,5 +1,5 @@
 import React from "react";
-import "./chat.css";
+import "../chat.css";
 import Button from "@mui/material/Button";
 import { BasicModal } from "./Modal";
 import { useNavigate } from "react-router-dom";

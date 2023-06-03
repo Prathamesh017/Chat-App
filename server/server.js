@@ -1,15 +1,15 @@
-import express from 'express'
-import colors from 'colors'
-import * as dotenv from 'dotenv'
-import userRouter from './Router/userRouter.js'
-import connectDB from './Config/db.js'
-import verifyToken from './Middleware/middleware.js'
-import cors from 'cors'
-import cloudinary from 'cloudinary'
+import express from 'express';
+import colors from 'colors';
+import * as dotenv from 'dotenv';
+import connectDB from './Config/db.js';
+import cors from 'cors';
+import cloudinary from 'cloudinary';
+import userRouter from './Router/userRouter.js';
+import chatsRouter from './Router/chatsRouter.js';
 
-dotenv.config()
-const app = express()
-const port = process.env.PORT || 3000
+dotenv.config();
+const app = express();
+const port = process.env.PORT || 3000;
 
 cloudinary.v2.config({
   api_key: process.env.API_KEY,
@@ -19,7 +19,8 @@ cloudinary.v2.config({
 app.use(express.json())
 app.use(cors())
 await connectDB()
-app.use('/api/user', userRouter)
+app.use('/api/user', userRouter);
+app.use("/api/chat",chatsRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`.yellow)

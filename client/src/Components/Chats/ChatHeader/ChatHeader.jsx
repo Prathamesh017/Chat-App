@@ -1,7 +1,7 @@
 import React from "react";
-import "./chat.css";
+import "../chat.css";
 import TemporaryDrawer from "./Drawers";
-import { SelectBar } from "./SelectHeader";
+import { SelectBar } from "./RightButtons";
 
 function ChatHeader() {
   return (

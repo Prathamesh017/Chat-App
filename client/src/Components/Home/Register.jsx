@@ -82,9 +82,9 @@ export default function Register() {
         "http://localhost:3000/api/user/register",
         data
       );
-      
+
       localStorage.setItem("user", JSON.stringify(user.data.data));
-      
+
       setError((err) => ({
         ...err,
         showToast: true,

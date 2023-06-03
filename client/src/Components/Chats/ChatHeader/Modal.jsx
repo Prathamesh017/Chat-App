@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import "./chat.css";
+import "../chat.css";
 
 const style = {
   position: "absolute",

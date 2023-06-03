@@ -2,9 +2,9 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import userModel from '../Models/userModel.js'
 class UserService {
-  
   constructor() {}
 
+  // @description - to hash and secure password
   hashPassword = async (password) => {
     try {
       let saltRounds = 10
@@ -16,6 +16,7 @@ class UserService {
     }
   }
 
+  // @description - to decrypt and match password
   validatePassword = async (password, hash) => {
     try {
       let isPasswordCorrect = await bcrypt.compare(password, hash)
@@ -25,6 +26,8 @@ class UserService {
       console.log(error)
     }
   }
+
+  // @description - to generate token for authorization
   generateToken = async (user, email) => {
     const token = await jwt.sign(
       { user_id: user._id, email },
@@ -37,6 +40,7 @@ class UserService {
     return token
   }
 
+  // @description - to login a user
   login = async (email, password, res) => {
     let user = await userModel.find({ email: email })
     if (user.length === 0) {
@@ -50,6 +54,7 @@ class UserService {
     if (checkPassword) {
       let token = await this.generateToken(user[0], user[0].email)
       let userObj = {
+        id: user[0]._id,
         name: user[0].name,
         email: user[0].email,
         password: user[0].password,
@@ -65,6 +70,7 @@ class UserService {
     }
   }
 
+  // @description - to create/register a user
   createUser = async (name, email, password, image) => {
     let user = await userModel.create({
       name,

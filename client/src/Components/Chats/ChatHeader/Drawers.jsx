@@ -9,7 +9,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
-import "./chat.css";
+import { chatContext } from "../../../Context/context";
+import { useContext } from "react";
+import "../chat.css";
 
 function TemporaryDrawer() {
   const [state, setState] = React.useState({
@@ -18,11 +20,30 @@ function TemporaryDrawer() {
   const [users, setUsers] = React.useState([]);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [searchText, setSearchText] = React.useState("");
+  const { allChats, setAllChats } = useContext(chatContext);
+  const loggedUser = JSON.parse(localStorage.getItem("user"));
 
-  const handleListItemClick = (event, index) => {
+  const handleListItemClick = async (event, index, user) => {
     setSelectedIndex(index);
+
+    const new_chat = await axios.post(
+      "http://localhost:3000/api/chat",
+
+      {
+        userId: user._id,
+      },
+      {
+        headers: { Authorization: `Bearer ${loggedUser.token}` },
+      }
+    );
+   
+    let new_user = new_chat.data.data[0].usersInChat.filter((user) => {
+      return user._id !== loggedUser.id;
+    });
+
+    setAllChats((existingChats) => [...existingChats, new_user]);
+ 
   };
-  let loggedUser = JSON.parse(localStorage.getItem("user"));
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -48,7 +69,6 @@ function TemporaryDrawer() {
 
       const user = await axios.get("http://localhost:3000/api/user", config);
       setUsers(user.data.data);
-      console.log(user);
     } catch (error) {
       console.log(error);
     }
@@ -104,7 +124,7 @@ function TemporaryDrawer() {
             >
               <ListItemButton
                 selected={selectedIndex === index}
-                onClick={(event) => handleListItemClick(event, index)}
+                onClick={(event) => handleListItemClick(event, index, user)}
               >
                 <ListItem>
                   <ListItemAvatar>
