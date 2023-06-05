@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import "../chat.css";
 
 const style = {
@@ -49,8 +48,8 @@ export function BasicModal() {
 
   return (
     <div>
-      <Button variant="outlined" size="small" onClick={handleOpen}>
-        <span>{<AccountBoxIcon fontSize="25px" />}</span>Profile
+      <Button variant="outlined" size="medium" onClick={handleOpen}>
+        Profile
       </Button>
 
       <Modal

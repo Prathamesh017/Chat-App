@@ -36,13 +36,12 @@ function TemporaryDrawer() {
         headers: { Authorization: `Bearer ${loggedUser.token}` },
       }
     );
-   
+
     let new_user = new_chat.data.data[0].usersInChat.filter((user) => {
       return user._id !== loggedUser.id;
     });
 
     setAllChats((existingChats) => [...existingChats, new_user]);
- 
   };
 
   const toggleDrawer = (anchor, open) => (event) => {

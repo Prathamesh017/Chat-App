@@ -8,6 +8,7 @@ import axios from "axios";
 import { useEffect } from "react";
 function ChatPage() {
   const [allChats, setAllChats] = useState([]);
+  const [selectChat, setSelectChat] = useState([]);
   const loggedUser = JSON.parse(localStorage.getItem("user"));
   const fetchAllChats = async () => {
     try {
@@ -24,9 +25,24 @@ function ChatPage() {
       );
 
       let allUsers = allChats.data.data.map((data) => {
-        return data.usersInChat.filter((user) => {
+        let users = data.usersInChat.filter((user) => {
           return user._id !== loggedUser.id;
         });
+        if (data.isGroupChat) {
+          let newUser = [
+            {
+              chatId:data._id,
+              name: data.chatName,
+              image:
+                "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+              isGroupChat: true,
+              users: users,
+            },
+          ];
+          return newUser;
+        } else {
+          return users;
+        }
       });
 
       setAllChats(allUsers);
@@ -38,7 +54,9 @@ function ChatPage() {
     fetchAllChats();
   }, []);
   return (
-    <chatContext.Provider value={{ allChats, setAllChats }}>
+    <chatContext.Provider
+      value={{ allChats, setAllChats, selectChat, setSelectChat }}
+    >
       <ChatHeader></ChatHeader>
       <ChatBody />
     </chatContext.Provider>

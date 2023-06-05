@@ -1,7 +1,7 @@
 import React from "react";
 import "../chat.css";
 import Button from "@mui/material/Button";
-import { BasicModal } from "./Modal";
+import { BasicModal } from "./ProfileModal";
 import { useNavigate } from "react-router-dom";
 export function SelectBar() {
   const navigate = useNavigate();

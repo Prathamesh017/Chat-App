@@ -1,39 +1,34 @@
 import React, { useEffect } from "react";
-import "../chat.css";
-import { Button } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import { useContext } from "react";
 import { chatContext } from "../../../Context/context";
+import GroupChatModal from "./GroupChat";
+import "../chat.css";
 function ChatBodyLeft() {
-  const { allChats } = useContext(chatContext);
+  const { allChats, setSelectChat } = useContext(chatContext);
 
+  // all chats shown on left side
+  const chatSelected = (user) => {
+    setSelectChat(user);
+  };
   useEffect(() => {}, [allChats]);
 
- 
   return (
     <div className="chat-left">
       <div className="chat-left-header">
         <h2 style={{ color: "white" }}>MY Chats</h2>
-        <Button
-          variant="contained"
-          endIcon={<AddIcon />}
-          style={{
-            backgroundColor: "#64748B",
-            size: {
-              xs: "small",
-              sm: "medium",
-            },
-          }}
-        >
-          New Group Chat
-        </Button>
+        <GroupChatModal></GroupChatModal>
       </div>
       <div className="chat-left-body">
         <div className="list">
           {allChats.length > 0 &&
             allChats.map((user, index) => {
               return (
-                <div className="list-item">
+                <div
+                  className="list-item"
+                  onClick={() => {
+                    chatSelected(user);
+                  }}
+                >
                   <div className="list-item-left">
                     <img
                       src={user[0].image}
