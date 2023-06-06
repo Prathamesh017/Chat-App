@@ -19,7 +19,7 @@ function ChatText() {
             }}
           ></Button>
         </div>
-        <div>
+        <div className="header-name">
           <h1>
             {selectChat[0].isGroupChat ? "Group Name : " : "Sender :"}
             {selectChat[0].name}

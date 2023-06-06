@@ -31,7 +31,7 @@ function ChatPage() {
         if (data.isGroupChat) {
           let newUser = [
             {
-              chatId:data._id,
+              chatId: data._id,
               name: data.chatName,
               image:
                 "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
@@ -41,10 +41,12 @@ function ChatPage() {
           ];
           return newUser;
         } else {
+          users["chatId"] = data._id;
           return users;
         }
       });
 
+     
       setAllChats(allUsers);
     } catch (error) {
       console.log(error);

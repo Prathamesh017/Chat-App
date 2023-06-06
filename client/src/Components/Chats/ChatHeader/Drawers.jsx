@@ -40,7 +40,8 @@ function TemporaryDrawer() {
     let new_user = new_chat.data.data[0].usersInChat.filter((user) => {
       return user._id !== loggedUser.id;
     });
-
+    new_user["chatId"] = new_chat.data.data[0]._id;
+   
     setAllChats((existingChats) => [...existingChats, new_user]);
   };
 

@@ -227,28 +227,30 @@ export function BasicModal() {
               >
                 {selectChat[0].name} Members
                 <p>
-                  {existingGroupMembers.map((user) => {
-                    return (
-                      <button
-                        style={{
-                          backgroundColor: "violet",
-                          padding: "5px",
-                          border: "none ",
-                          margin: "5px",
-                        }}
-                        onClick={() => {
-                          UpdateFromGroup(user, "remove");
-                        }}
-                      >
-                        <p>
-                          {user.name}
-                          <span style={{ marginLeft: "5px", color: "white" }}>
-                            X
-                          </span>
-                        </p>
-                      </button>
-                    );
-                  })}
+                  {existingGroupMembers &&
+                    existingGroupMembers.length > 0 &&
+                    existingGroupMembers.map((user) => {
+                      return (
+                        <button
+                          style={{
+                            backgroundColor: "violet",
+                            padding: "5px",
+                            border: "none ",
+                            margin: "5px",
+                          }}
+                          onClick={() => {
+                            UpdateFromGroup(user, "remove");
+                          }}
+                        >
+                          <p>
+                            {user.name}
+                            <span style={{ marginLeft: "5px", color: "white" }}>
+                              X
+                            </span>
+                          </p>
+                        </button>
+                      );
+                    })}
                 </p>
               </Typography>
               <div className="group-inputs">
