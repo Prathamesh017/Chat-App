@@ -23,7 +23,13 @@ await connectDB()
 app.use('/api/user', userRouter)
 app.use('/api/chat', chatsRouter)
 app.use('/api/message', messageRouter)
-
+app.use(
+  cors({
+    origin: [process.env.FRONTEND_URL],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+  })
+)
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`.yellow)
 })
