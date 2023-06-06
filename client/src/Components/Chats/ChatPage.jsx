@@ -20,7 +20,7 @@ function ChatPage() {
       };
 
       const allChats = await axios.get(
-        "http://localhost:3000/api/chat",
+        "https://chat-app-backend-production-b904.up.railway.app/api/chat",
         config
       );
 

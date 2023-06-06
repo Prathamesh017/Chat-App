@@ -79,7 +79,7 @@ export default function Register() {
           "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
       }
       const user = await axios.post(
-        "http://localhost:3000/api/user/register",
+        "https://chat-app-backend-production-b904.up.railway.app/api/user/register",
         data
       );
 

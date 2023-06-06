@@ -82,7 +82,10 @@ export function BasicModal() {
         },
       };
 
-      const user = await axios.get("http://localhost:3000/api/user", config);
+      const user = await axios.get(
+        "https://chat-app-backend-production-b904.up.railway.app/api/user",
+        config
+      );
       setUsers(user.data.data);
     } catch (error) {
       console.log(error);
@@ -101,7 +104,7 @@ export function BasicModal() {
     }
     try {
       await axios.put(
-        "http://localhost:3000/api/chat/group/rename",
+        "https://chat-app-backend-production-b904.up.railway.app/api/chat/group/rename",
 
         {
           chatId: selectChat[0].chatId,
@@ -149,7 +152,7 @@ export function BasicModal() {
 
     try {
       await axios.put(
-        "http://localhost:3000/api/chat/group/update",
+        "https://chat-app-backend-production-b904.up.railway.app/api/chat/group/update",
 
         {
           chatId: selectChat[0].chatId,

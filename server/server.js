@@ -21,7 +21,7 @@ cloudinary.v2.config({
 app.use(express.json())
 app.use(cors())
 await connectDB()
-app.get('/', (req, res) => {})
+
 app.use('/api/user', userRouter)
 app.use('/api/chat', chatsRouter)
 app.use('/api/message', messageRouter)

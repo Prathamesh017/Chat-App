@@ -58,7 +58,10 @@ export function GroupChatModal() {
         },
       };
 
-      const user = await axios.get("http://localhost:3000/api/user", config);
+      const user = await axios.get(
+        "https://chat-app-backend-production-b904.up.railway.app/api/user",
+        config
+      );
       setUsers(user.data.data);
     } catch (error) {
       console.log(error);
@@ -92,7 +95,7 @@ export function GroupChatModal() {
 
     try {
       const newGroupchat = await axios.post(
-        "http://localhost:3000/api/chat/group",
+        "https://chat-app-backend-production-b904.up.railway.app/api/chat/group",
 
         {
           name: groupName,

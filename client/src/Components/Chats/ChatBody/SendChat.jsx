@@ -16,7 +16,7 @@ function SendChat() {
         return;
       }
       const sentMessage = await axios.post(
-        "http://localhost:3000/api/message",
+        "https://chat-app-backend-production-b904.up.railway.app/api/message",
         {
           message: content,
           chatId: selectChat.chatId || selectChat[0].chatId,
@@ -44,7 +44,7 @@ function SendChat() {
       let chatId = selectChat.chatId || selectChat[0].chatId;
       setMessages([]);
       const allGroupChats = await axios.get(
-        "http://localhost:3000/api/message",
+        "https://chat-app-backend-production-b904.up.railway.app/api/message",
         {
           headers: { Authorization: `Bearer ${loggedUser.token}` },
           params: { chatId: chatId },

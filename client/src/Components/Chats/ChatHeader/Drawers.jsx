@@ -27,7 +27,7 @@ function TemporaryDrawer() {
     setSelectedIndex(index);
 
     const new_chat = await axios.post(
-      "http://localhost:3000/api/chat",
+      "https://chat-app-backend-production-b904.up.railway.app/api/chat",
 
       {
         userId: user._id,
@@ -67,7 +67,7 @@ function TemporaryDrawer() {
         },
       };
 
-      const user = await axios.get("http://localhost:3000/api/user", config);
+      const user = await axios.get("https://chat-app-backend-production-b904.up.railway.app/api/user", config);
       setUsers(user.data.data);
     } catch (error) {
       console.log(error);

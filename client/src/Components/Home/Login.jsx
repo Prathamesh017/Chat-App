@@ -32,7 +32,7 @@ function Login() {
   const login = async function () {
     try {
       const user = await axios.post(
-        "http://localhost:3000/api/user/login",
+        "https://chat-app-backend-production-b904.up.railway.app/api/user/login",
         data
       );
       localStorage.setItem("user", JSON.stringify(user.data.data));
