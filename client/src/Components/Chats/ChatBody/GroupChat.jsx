@@ -1,101 +1,101 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import "../chat.css";
-import AddIcon from "@mui/icons-material/Add";
-import axios from "axios";
-import Alert from "@mui/material/Alert";
-import { useContext } from "react";
-import { chatContext } from "../../../Context/context";
+import * as React from 'react'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
+import '../chat.css'
+import AddIcon from '@mui/icons-material/Add'
+import axios from 'axios'
+import Alert from '@mui/material/Alert'
+import { useContext } from 'react'
+import { chatContext } from '../../../Context/context'
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   minHeight: 400,
   width: {
     xs: 300,
     sm: 400,
   },
   height: {
-    xs: "auto",
-    sm: "auto",
+    xs: 'auto',
+    sm: 'auto',
   },
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   borderRadius: 5,
   p: 4,
-};
+}
 
 export function GroupChatModal() {
-  const [open, setOpen] = React.useState(false);
-  const [groupName, setGroupName] = React.useState("");
-  const [users, setUsers] = React.useState([]);
-  const [groupUsers, setGroupUsers] = React.useState([]);
+  const [open, setOpen] = React.useState(false)
+  const [groupName, setGroupName] = React.useState('')
+  const [users, setUsers] = React.useState([])
+  const [groupUsers, setGroupUsers] = React.useState([])
   const [error, setError] = React.useState({
     showToast: false,
-    showToastStatus: "",
-    message: "",
-  });
-  const { setAllChats } = useContext(chatContext);
+    showToastStatus: '',
+    message: '',
+  })
+  const { setAllChats } = useContext(chatContext)
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  let loggedUser = JSON.parse(localStorage.getItem("user"));
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+  let loggedUser = JSON.parse(localStorage.getItem('user'))
 
   const searchUser = async (searchText) => {
     try {
       if (!searchText) {
-        return;
+        return
       }
       let config = {
         headers: { Authorization: `Bearer ${loggedUser.token}` },
         params: {
           searchText: searchText,
         },
-      };
+      }
 
       const user = await axios.get(
-        "https://chat-app-backend-production-b904.up.railway.app/api/user",
-        config
-      );
-      setUsers(user.data.data);
+        'https://chat-app-backends-jy4z.onrender.com/api/user',
+        config,
+      )
+      setUsers(user.data.data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
   const removeUserFromGroup = (name) => {
     let filterUsers = groupUsers.filter((user) => {
-      return user.name !== name;
-    });
-    setGroupUsers(filterUsers);
-  };
+      return user.name !== name
+    })
+    setGroupUsers(filterUsers)
+  }
   const createGroupChat = async () => {
     if (!groupName) {
       setError((err) => ({
         ...err,
         showToast: true,
-        showToastStatus: "error",
-        message: "please set group name",
-      }));
-      return;
+        showToastStatus: 'error',
+        message: 'please set group name',
+      }))
+      return
     }
     if (groupUsers.length < 2) {
       setError((err) => ({
         ...err,
         showToast: true,
-        showToastStatus: "error",
-        message: "Please Add Atleast 2 members in group",
-      }));
-      return;
+        showToastStatus: 'error',
+        message: 'Please Add Atleast 2 members in group',
+      }))
+      return
     }
 
     try {
       const newGroupchat = await axios.post(
-        "https://chat-app-backend-production-b904.up.railway.app/api/chat/group",
+        'https://chat-app-backends-jy4z.onrender.com/api/chat/group',
 
         {
           name: groupName,
@@ -103,27 +103,27 @@ export function GroupChatModal() {
         },
         {
           headers: { Authorization: `Bearer ${loggedUser.token}` },
-        }
-      );
+        },
+      )
 
       let users = newGroupchat.data.data[0].usersInChat.filter((user) => {
-        return user._id !== loggedUser.id;
-      });
+        return user._id !== loggedUser.id
+      })
 
       let newUser = [
         {
           chatId: newGroupchat.data.data[0]._id,
           name: newGroupchat.data.data[0].chatName,
           image:
-            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+            'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg',
           isGroupChat: true,
           users: users,
         },
-      ];
+      ]
 
-      setAllChats((existingChats) => [...existingChats, newUser]);
+      setAllChats((existingChats) => [...existingChats, newUser])
     } catch {}
-  };
+  }
 
   return (
     <div>
@@ -131,10 +131,10 @@ export function GroupChatModal() {
         variant="contained"
         endIcon={<AddIcon />}
         style={{
-          backgroundColor: "#64748B",
+          backgroundColor: '#64748B',
           size: {
-            xs: "small",
-            sm: "medium",
+            xs: 'small',
+            sm: 'medium',
           },
         }}
         onClick={handleOpen}
@@ -154,11 +154,11 @@ export function GroupChatModal() {
               variant="h6"
               component="h2"
               style={{
-                textAlign: "center",
-                marginTop: "-20px",
-                marginBotton: "20px",
-                textTransform: "capitalize",
-                fontSize: "20px",
+                textAlign: 'center',
+                marginTop: '-20px',
+                marginBotton: '20px',
+                textTransform: 'capitalize',
+                fontSize: '20px',
               }}
             >
               Create Group Chat
@@ -168,44 +168,44 @@ export function GroupChatModal() {
                 type="text"
                 placeholder="Enter Group Name"
                 onChange={(e) => {
-                  setGroupName(e.target.value);
+                  setGroupName(e.target.value)
                 }}
               ></input>
               <input
                 type="text"
                 placeholder="search users"
                 onChange={(e) => {
-                  searchUser(e.target.value);
+                  searchUser(e.target.value)
                 }}
               ></input>
             </div>
 
             <div
               class="select-users"
-              style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}
+              style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}
             >
               {groupUsers.length > 0 &&
                 groupUsers.map((user) => {
                   return (
                     <button
                       style={{
-                        backgroundColor: "violet",
-                        padding: "5px",
-                        border: "none ",
-                        marginTop: "5px",
+                        backgroundColor: 'violet',
+                        padding: '5px',
+                        border: 'none ',
+                        marginTop: '5px',
                       }}
                       onClick={() => {
-                        removeUserFromGroup(user.name);
+                        removeUserFromGroup(user.name)
                       }}
                     >
                       <p>
                         {user.name}
-                        <span style={{ marginLeft: "5px", color: "white" }}>
+                        <span style={{ marginLeft: '5px', color: 'white' }}>
                           X
                         </span>
                       </p>
                     </button>
-                  );
+                  )
                 })}
             </div>
             <div className="users-list">
@@ -218,7 +218,7 @@ export function GroupChatModal() {
                         setGroupUsers((existingUsers) => [
                           ...existingUsers,
                           user,
-                        ]);
+                        ])
                       }}
                     >
                       <div className="list-item-left">
@@ -226,7 +226,7 @@ export function GroupChatModal() {
                           src={user.image}
                           width="30px"
                           height="30px"
-                          style={{ borderRadius: "50%" }}
+                          style={{ borderRadius: '50%' }}
                           alt="mp"
                         />
                       </div>
@@ -234,7 +234,7 @@ export function GroupChatModal() {
                         <div>{user.name}</div>
                       </div>
                     </div>
-                  );
+                  )
                 })
               ) : (
                 <>
@@ -249,18 +249,18 @@ export function GroupChatModal() {
           <div
             className="button-bottom"
             style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              marginTop: "20px",
+              display: 'flex',
+              justifyContent: 'flex-end',
+              marginTop: '20px',
             }}
           >
             <Button
               variant="contained"
               style={{
-                backgroundColor: "#FFA500",
+                backgroundColor: '#FFA500',
                 size: {
-                  xs: "small",
-                  sm: "medium",
+                  xs: 'small',
+                  sm: 'medium',
                 },
               }}
               onClick={createGroupChat}
@@ -271,15 +271,15 @@ export function GroupChatModal() {
           {error.showToast && (
             <Alert
               severity={error.showToastStatus}
-              style={{ marginTop: "20px" }}
+              style={{ marginTop: '20px' }}
             >
-              {error.message}{" "}
+              {error.message}{' '}
             </Alert>
           )}
         </Box>
       </Modal>
     </div>
-  );
+  )
 }
 
-export default GroupChatModal;
+export default GroupChatModal

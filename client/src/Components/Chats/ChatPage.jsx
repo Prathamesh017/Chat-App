@@ -20,7 +20,7 @@ function ChatPage() {
       };
 
       const allChats = await axios.get(
-        "https://chat-app-backend-production-b904.up.railway.app/api/chat",
+        "https://chat-app-backends-jy4z.onrender.com/api/chat",
         config
       );
 
